@@ -1,0 +1,27 @@
+<view class="tip">
+	<text style="color: red;">长按触发拖拽排序!!</text>
+	<text style="color: #3F82FD;">最新版本增加顶部固定区域高度和底部固定区域高度, 以响应超过一屏时候可以正确滑动</text>
+</view>
+
+<drag id="drag" bind:click="itemClick" columns="{{size}}" list-data="{{listData}}" top-size="110" bottom-size="{{isIphoneX ? 380 : 300 }}" bind:change="change"></drag>
+
+<view class="empty-bottom {{isIphoneX ? 'isX' : ''}}"></view>
+
+<view class="control-panel {{isIphoneX ? 'isX' : ''}}">
+	<view class="panel-item">
+		<view class="panel-item__hd">请选择需要固定住的item:</view>
+	</view>
+	<view>
+		<view wx:for="{{listData}}" wx:key="{{index}}" bind:tap="toggleFixed" data-key="{{index}}" class="circle-wrap">
+			<view wx:if="{{item.fixed}}" class="circle cur">✓</view>
+			<view wx:else class="circle"></view>
+			<view>{{index}}</view>
+		</view>
+	</view>
+	<view class="panel-item">
+		<view class="panel-item__hd">columns:</view>
+		<view class="panel-item__bd">
+			<slider bindchanging="sizeChange" value="{{size}}" show-value="{{true}}" min="1" max="8" step="1"/>
+		</view>
+	</view>
+</view>
